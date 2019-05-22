@@ -16,6 +16,9 @@ attr_reader(:customer_name, :age)
      @drunkenness_level += drink.alcohol_level
   end
 
-
+  def eat_meal(food)
+    @wallet -= food.price
+    @drunkenness_level -= food.rejuvenation_level
+  end
 
 end

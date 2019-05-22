@@ -9,7 +9,7 @@ class TestPub < MiniTest::Test
   def setup
     @drink1 = Drink.new("Beer", 5, 1)
     @drink2 = Drink.new("Wine", 4, 2)
-    @pub = Pub.new("Black Horse", 0, [@drink1, @drink2])
+    @pub = Pub.new("Black Horse", 0, [@drink1, @drink1, @drink1, @drink2])
     @customer1 = Customer.new("John", 100, 40, 0)
     @customer2 = Customer.new("Alex", 20, 17, 0)
     @customer3 = Customer.new("Mary", 100, 23, 25)
@@ -24,7 +24,7 @@ class TestPub < MiniTest::Test
   end
 
   def test_drinks
-    assert_equal([@drink1, @drink2], @pub.drinks)
+    assert_equal([@drink1, @drink1, @drink1, @drink2], @pub.drinks)
   end
 
   def test_pays_for_drink
@@ -63,6 +63,18 @@ class TestPub < MiniTest::Test
   def test_give_or_refuse_service
     @pub.give_or_refuse_service(@customer3, @drink1, @pub)
     assert_equal(100, @customer1.wallet)
+  end
+
+  def test_check_stock
+    assert_equal(1, @pub.check_stock(@pub, @drink2))
+  end
+
+  def test_check_stock_doesthismessreallywork
+    assert_equal(3, @pub.check_stock(@pub, @drink1))
+  end
+
+  def test_stock_value
+    assert_equal(19, @pub.stock_value)
   end
 
 end
